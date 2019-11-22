@@ -4,6 +4,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GlobalMessageModule } from './store/features/global-message/global-message.module';
+import { SignInUpModule } from './cms-components/sign-in-up/sign-in-up.module';
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import { GlobalMessageModule } from './store/features/global-message/global-mess
   imports: [
     BrowserModule,
     AppRoutingModule,
+    SignInUpModule,
     // Store Modules //
     GlobalMessageModule,
     EffectsModule.forRoot([]),

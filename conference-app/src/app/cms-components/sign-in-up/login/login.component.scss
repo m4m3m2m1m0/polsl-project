@@ -1,0 +1,15 @@
+.example-container {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  margin: 0 auto;
+}
+
+.example-container > * {
+  width: 100%;
+}
+
+.login-form-btn {
+    width: 50%;
+    margin: 0 auto;
+}
