@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GlobalMessageModule } from './store/features/global-message/global-message.module';
 import { SignInUpModule } from './cms-components/sign-in-up/sign-in-up.module';
+import { UserModule } from './store/features/user/user.module';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { SignInUpModule } from './cms-components/sign-in-up/sign-in-up.module';
     SignInUpModule,
     // Store Modules //
     GlobalMessageModule,
+    UserModule,
     EffectsModule.forRoot([]),
   ],
   providers: [],
