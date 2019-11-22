@@ -3,10 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { EffectsModule } from '@ngrx/effects';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { GlobalMessageModule } from './store/features/global-message/global-message.module';
+import { NavigationModule } from './cms-components/navigation/navigation.module';
 import { SignInUpModule } from './cms-components/sign-in-up/sign-in-up.module';
+import { GlobalMessageModule } from './store/features/global-message/global-message.module';
 import { UserModule } from './store/features/user/user.module';
-
 
 @NgModule({
   declarations: [
@@ -16,6 +16,7 @@ import { UserModule } from './store/features/user/user.module';
     BrowserModule,
     AppRoutingModule,
     SignInUpModule,
+    NavigationModule,
     // Store Modules //
     GlobalMessageModule,
     UserModule,
