@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UserFacade } from './store/features/user/facades/user.facade';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,18 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'ConferenceApp';
+
+  constructor(
+    protected _userFacade: UserFacade
+  ) { }
+  
+  ngOnInit(): void {
+    const userCrypted = localStorage.getItem('user');
+    if (userCrypted !== null) {
+      let user: any = JSON.parse(atob(userCrypted));
+      this._userFacade.loginUser({ userName: user.name, password: user.password })
+    }
+  }
+
+
 }

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { UserFacade } from 'src/app/store/features/user/facades/user.facade';
 
 @Component({
   selector: 'app-nav-menu',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavMenuComponent implements OnInit {
 
-  constructor() { }
+  isLogged$: Observable<boolean> = this._userFacade.isUserLogged();;
+
+  constructor(
+    protected _userFacade: UserFacade
+  ) { }
 
   ngOnInit() {
+  }
+
+  logout() {
+    this._userFacade.logutUser();
   }
 
 }
