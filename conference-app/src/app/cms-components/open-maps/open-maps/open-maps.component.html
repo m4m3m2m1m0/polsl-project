@@ -1,1 +1,17 @@
-<p>open-maps works!</p>
+<div>
+    <div class="map-info-wrapper">
+        <div>
+            <label for="latitude">Latitude:</label>
+            <input id="latitude" type="number" [(ngModel)]="latitude" placeholder="Latitude">
+        </div>
+
+        <div>
+            <label for="longitude">Longitude:</label>
+            <input id="longitude" type="number" [(ngModel)]="longitude" placeholder="Longitude">
+        </div>
+        <button (click)="setCenter()">Go</button>
+    </div>
+    <br>
+    <div id="map" (click)="getCoord($event)" class="map"></div>
+    <div id="mouse-position"></div>
+</div>
