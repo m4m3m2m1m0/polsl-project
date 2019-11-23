@@ -1,15 +1,25 @@
-.example-container {
+.login-container {
   display: flex;
   flex-direction: column;
   width: 30%;
   margin: 0 auto;
 }
 
-.example-container > * {
+.login-container > * {
   width: 100%;
 }
 
 .login-form-btn {
     width: 50%;
     margin: 0 auto;
+}
+
+.login-container {
+  margin-top: 10px;
+
+  .form-label {
+    font-weight: bold;
+    font-size: 15px;
+    margin-bottom: 5px;
+  }
 }

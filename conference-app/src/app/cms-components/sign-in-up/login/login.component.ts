@@ -3,6 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GlobalMessage } from 'src/app/models/global-message.model';
 import { GlobalMessageFacade } from 'src/app/store/features/global-message/facades/global-message.facade';
 import { UserFacade } from 'src/app/store/features/user/facades/user.facade';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,10 +16,18 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
+  // Redirect to home page if usser logged //
+  isLogged$: Observable<boolean> = this._userFacade.isUserLogged().pipe(
+    tap(isLogged => {
+      isLogged == true ? this._router.navigateByUrl('/') : null;
+    })
+  );
+
   constructor(
     protected _fb: FormBuilder,
     protected _messageFacade: GlobalMessageFacade,
-    protected _userFacade: UserFacade
+    protected _userFacade: UserFacade,
+    protected _router: Router
   ) { }
 
   ngOnInit() {
@@ -37,8 +48,8 @@ export class LoginComponent implements OnInit {
     }
 
     const form = {
-      userName: this.loginForm.get('userName').value(),
-      password: this.loginForm.get('password').value()
+      userName: this.loginForm.get('userName').value,
+      password: this.loginForm.get('password').value
     }
 
     this._userFacade.loginUser(form);

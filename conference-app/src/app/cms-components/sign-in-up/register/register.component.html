@@ -1,31 +1,30 @@
 <div class="register-container">
   <form [formGroup]="registerForm" (ngSubmit)="submitRegisterForm()">
+
     <div class="form-group">
-      <label for="userName">User Name</label>
+      <label for="userName" class="form-label">User Name</label>
       <input type="email" class="form-control" formControlName="userName" id="userName"
         placeholder="Enter your user name">
     </div>
+
     <div class="form-group">
-      <label>Password</label>
-      <input type="password" class="form-control" formControlName="password"  />
-      <div *ngIf="registerForm['controls'].password.errors" class="invalid-feedback">
-        <div *ngIf="registerForm['controls'].password.errors">Password is required</div>
-        <div *ngIf="registerForm['controls'].password.minlength">Password must be at least 6 characters</div>
-      </div>
-    </div>
-    <div class="form-group">
-      <label>Confirm Password</label>
-      <input type="password" formControlName="confirmPassword" class="form-control" />
-      <div *ngIf="registerForm['controls'].confirmPassword.errors" class="invalid-feedback">
-        <div *ngIf="registerForm['controls'].confirmPassword.errors.required">Confirm Password is required</div>
-        <div *ngIf="registerForm['controls'].confirmPassword.errors.mustMatch">Passwords must match</div>
-      </div>
+      <label for="password" class="form-label">Password</label>
+      <input type="password" class="form-control" formControlName="password" placeholder="Enter your password" />
+      <div class="form-error" *ngIf="password?.errors?.minlength">Password must be at least 6 characters</div>
     </div>
 
     <div class="form-group">
+      <label for="confirmPassword" class="form-label">Confirm Password</label>
+      <input type="password" formControlName="confirmPassword" class="form-control"
+        placeholder="Enter your password again" />
+      <div class="form-error" *ngIf="confirmPassword?.errors?.mustMatch">Passwords must match</div>
+    </div>
+
+    <div class=" form-group">
       Already have account? <a [routerLink]="['/login']">Click to login!</a>
-
     </div>
+
     <button type="submit" class="register-form-btn btn btn-primary btn-block">Register</button>
+    
   </form>
 </div>

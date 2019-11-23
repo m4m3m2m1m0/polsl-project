@@ -13,3 +13,20 @@
   width: 50%;
   margin: 0 auto;
 }
+
+.register-container {
+  margin-top: 10px;
+
+  .form-error {
+    color: red;
+    font-weight: bold;
+    font-size: 13px;
+    padding-top: 5px;
+  }
+
+  .form-label {
+    font-weight: bold;
+    font-size: 15px;
+    margin-bottom: 5px;
+  }
+}

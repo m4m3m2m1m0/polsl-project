@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { GlobalMessage } from 'src/app/models/global-message.model';
 import { GlobalMessageFacade } from 'src/app/store/features/global-message/facades/global-message.facade';
 import { UserFacade } from 'src/app/store/features/user/facades/user.facade';
-import { GlobalMessage } from 'src/app/models/global-message.model';
 import { PasswordValidator } from './validators/password.validator';
 
 @Component({
@@ -11,7 +11,6 @@ import { PasswordValidator } from './validators/password.validator';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-
 
   registerForm: FormGroup;
 
@@ -33,9 +32,11 @@ export class RegisterComponent implements OnInit {
 
   }
 
+  get confirmPassword() { return this.registerForm['controls'].confirmPassword }
+  get password() { return this.registerForm['controls'].password }
+
   submitRegisterForm() {
 
-    console.log(this.registerForm);
     if (this.registerForm.invalid) {
       const message: GlobalMessage = { message: 'One of the required field is improperly filled or empty!', action: 'Close', config: null };
       this._messageFacade.addGlobalMessage(message);
@@ -43,8 +44,8 @@ export class RegisterComponent implements OnInit {
     }
 
     const form = {
-      userName: this.registerForm.get('userName').value(),
-      password: this.registerForm.get('password').value()
+      userName: this.registerForm.get('userName').value,
+      password: this.registerForm.get('password').value
     }
 
     this._userFacade.registerUser(form);
