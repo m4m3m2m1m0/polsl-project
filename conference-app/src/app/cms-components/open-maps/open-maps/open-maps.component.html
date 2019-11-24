@@ -1,15 +1,25 @@
+<ng-container *ngIf="confList$ | async"></ng-container>
+
 <div>
     <div class="map-info-wrapper">
         <div>
-            <label for="latitude">Latitude:</label>
-            <input id="latitude" type="number" [(ngModel)]="latitude" placeholder="Latitude">
-        </div>
+            <!-- <label for="latitude">Latitude:</label>
+            <input id="latitude" type="number" [(ngModel)]="latitude" placeholder="Latitude"> -->
 
-        <div>
-            <label for="longitude">Longitude:</label>
-            <input id="longitude" type="number" [(ngModel)]="longitude" placeholder="Longitude">
+            <mat-form-field>
+                <input matInput [matDatepicker]="picker" placeholder="Start date" [(ngModel)]="startDate">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker ngDefaultControl></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field>
+                <input matInput [matDatepicker]="picker2" placeholder="End date" [(ngModel)]="endDate">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2 ngDefaultControl></mat-datepicker>
+            </mat-form-field>
+
+            <button class="btn btn-primary" (click)="searchConferences()">Search Conferences</button>
         </div>
-        <button (click)="setCenter()">Go</button>
     </div>
     <br>
     <div id="map" (click)="getCoord($event)" class="map"></div>

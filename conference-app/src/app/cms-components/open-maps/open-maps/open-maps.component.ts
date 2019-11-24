@@ -1,5 +1,8 @@
-import {MatDialogConfig, MatDialog} from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { ConferenceFacade } from 'src/app/store/features/conference/facades/conference.facade';
 import { ConferenceDialogComponent } from '../conference-dialog/conference-dialog.component';
 
 declare var ol: any;
@@ -11,16 +14,33 @@ declare var ol: any;
 })
 export class OpenMapsComponent implements OnInit {
 
+  startDate;
+  endDate;
+
   latitude: number = 18.5204;
   longitude: number = 73.8567;
 
   map: any;
 
-  confList = [{ name: 'conf1', latitude: 50.29761, longitude: 18.67658 }, { name: 'conf2', latitude: 50.21759, longitude: 18.37653 }]
+  confList: any[];
+
+  confList$: Observable<any> = this._conferenceFacade.getAvailableConferences().pipe(
+    tap(conferences => {
+      console.log('available: ', conferences);
+      conferences.forEach(conf => {
+        this.addPoint(conf.latitude, conf.longitude, conf.name);
+      });
+      this.confList = conferences;
+    })
+  );
+
+  vectorLayers: any[] = [];
 
   constructor(
-    protected _dialogService: MatDialog
-  ) {}
+    protected _dialogService: MatDialog,
+    protected _conferenceFacade: ConferenceFacade
+  ) { }
+
   ngOnInit() {
 
     navigator.geolocation.getCurrentPosition(position => {
@@ -32,8 +52,6 @@ export class OpenMapsComponent implements OnInit {
     var mousePositionControl = new ol.control.MousePosition({
       coordinateFormat: ol.coordinate.createStringXY(4),
       projection: 'EPSG:4326',
-      // comment the following two lines to have the mouse position
-      // be placed within the map.
       className: 'custom-mouse-position',
       target: document.getElementById('mouse-position'),
       undefinedHTML: '&nbsp;'
@@ -58,9 +76,9 @@ export class OpenMapsComponent implements OnInit {
       })
     });
 
-    this.confList.forEach(conf => {
-      this.addPoint(conf.latitude, conf.longitude, conf.name);
-    });
+    // this.confList.forEach(conf => {
+    //   this.addPoint(conf.latitude, conf.longitude, conf.name);
+    // });
   }
 
   getCoord(event: any) {
@@ -101,7 +119,19 @@ export class OpenMapsComponent implements OnInit {
         })
       }),
     });
+    this.vectorLayers.push(vectorLayer);
     this.map.addLayer(vectorLayer);
+  }
+
+  searchConferences() {
+    if (this.startDate !== undefined && this.endDate !== undefined) {
+
+      this.vectorLayers.forEach(vector => {
+        this.map.removeLayer(vector);
+      });
+      
+      this._conferenceFacade.loadAvailableConferences(this.startDate, this.endDate)
+    }
   }
 
   findClosestConference(lat, long) {
@@ -112,11 +142,12 @@ export class OpenMapsComponent implements OnInit {
       dist.push(d);
     });
 
-    let i = dist.indexOf(Math.min(...dist));
-    let closest = this.confList[i];
-
-    console.log(closest.name);
-    this.openDialog(closest);
+    let min = Math.min(...dist)
+    if (min < 0.05) {
+      let i = dist.indexOf(min);
+      let closest = this.confList[i];
+      this.openDialog(closest);
+    }
   }
 
   openDialog(closest) {
@@ -127,9 +158,9 @@ export class OpenMapsComponent implements OnInit {
     dialogConfig.autoFocus = true;
 
     dialogConfig.data = {
-        id: 1,
-        title: 'Angular For Beginners',
-        conference: closest
+      id: 1,
+      title: 'Angular For Beginners',
+      conference: closest
     };
 
     this._dialogService.open(ConferenceDialogComponent, dialogConfig);
