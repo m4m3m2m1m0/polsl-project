@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { environment } from 'src/environments/environment';
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
+import { OpenMapsModule } from './cms-components/open-maps/open-maps.module';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { StoreDevtoolsModule } from "@ngrx/store-devtools";
     SignInUpModule,
     NavigationModule,
     HttpClientModule,
+    OpenMapsModule,
     // Store Modules //
     GlobalMessageModule,
     UserModule,
