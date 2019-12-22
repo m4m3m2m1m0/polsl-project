@@ -17,6 +17,7 @@ import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { OpenMapsModule } from './cms-components/open-maps/open-maps.module';
 import { ConferenceService } from './occ/services/conference/conference.service';
 import { ConferenceModule } from './store/features/conference/conference.module';
+import { UserConferenceModule } from './cms-components/conference/user-conference.module';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { ConferenceModule } from './store/features/conference/conference.module'
     NavigationModule,
     HttpClientModule,
     OpenMapsModule,
+    UserConferenceModule,
     // Store Modules //
     GlobalMessageModule,
     UserModule,
