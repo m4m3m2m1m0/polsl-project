@@ -26,7 +26,6 @@ export class OpenMapsComponent implements OnInit {
 
   confList$: Observable<any> = this._conferenceFacade.getAvailableConferences().pipe(
     tap(conferences => {
-      console.log('available: ', conferences);
       conferences.forEach(conf => {
         this.addPoint(conf.latitude, conf.longitude, conf.name);
       });

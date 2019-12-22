@@ -70,9 +70,6 @@ export class UserEffects {
                     )
                 ),
                 switchMap(([registerForm, user]) => {
-                    console.log(user),
-                        console.log(registerForm)
-
                     const message: GlobalMessage = { message: 'User Registered successfully!', action: 'Close', config: null };
                     const loginForm = { userName: user.userName, password: registerForm.password }
                     return [

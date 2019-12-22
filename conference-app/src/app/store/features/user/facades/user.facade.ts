@@ -14,8 +14,8 @@ export class UserFacade {
     protected _store: Store<UserState>
   ) { }
 
-  getCurrentUser(): any {
-    this._store.select(selectUser);
+  getCurrentUser(): Observable<any> {
+    return this._store.select(selectUser);
   }
 
   isUserLogged(): Observable<boolean> {
