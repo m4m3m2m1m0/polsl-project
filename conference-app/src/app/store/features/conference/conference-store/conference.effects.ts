@@ -7,7 +7,7 @@ import { GlobalMessage } from 'src/app/models/global-message.model';
 import { ConferenceService } from 'src/app/occ/services/conference/conference.service';
 import { showGlobalMessage } from '../../global-message/global-message-store/global-message.actions';
 import { ConferenceActions } from './conference-action-types';
-import { loadAvailableConferencesSuccess } from './conference.actions';
+import { getUserInterestedConferencesSuccess, loadAvailableConferencesSuccess, loadCurrentConfferenceForIdSuccess } from './conference.actions';
 
 
 @Injectable()
@@ -18,12 +18,12 @@ export class ConferenceEffects {
         protected _conferenceService: ConferenceService
     ) { }
 
-    availbleConferences$ = createEffect(() =>
+    availableConferences$ = createEffect(() =>
         this._actions$
             .pipe(
                 ofType(ConferenceActions.loadAvailableConferences),
-                mergeMap(action =>
-                    this._conferenceService.getAvailableConferences(action.startDate, action.endDate).pipe(
+                mergeMap(action => {
+                    return this._conferenceService.getAvailableConferences(action.startDate, action.endDate).pipe(
                         switchMap(conferences => {
                             return [loadAvailableConferencesSuccess({ conferences })]
                         }),
@@ -32,8 +32,35 @@ export class ConferenceEffects {
                             return of(showGlobalMessage({ message }));
                         })
                     )
+                }),
+            )
+    )
+
+    userInterestedConferences$ = createEffect(() =>
+        this._actions$
+            .pipe(
+                ofType(ConferenceActions.getUserInterestedConferences),
+                mergeMap(action =>
+                    this._conferenceService.getUserInterestedConferences(action.userName).pipe(
+                        switchMap(conferences => {
+                            return [getUserInterestedConferencesSuccess({ conferences })]
+                        })
+                    )
                 ),
             )
     )
 
+    getConferenceForId$ = createEffect(() =>
+        this._actions$
+            .pipe(
+                ofType(ConferenceActions.loadCurrentConfferenceForId),
+                mergeMap(action =>
+                    this._conferenceService.getConferenceForId(action.id).pipe(
+                        switchMap(conference => {
+                            return [loadCurrentConfferenceForIdSuccess({ conference })]
+                        })
+                    )
+                ),
+            )
+    )
 }
