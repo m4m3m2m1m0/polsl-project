@@ -6,20 +6,16 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
 
-      <li class="nav-item active">
-        <a class="nav-link" [routerLink]="['/']"><i class="material-icons icon">home</i></a>
-      </li>
-
       <li *ngIf="(isLogged$ | async)" class="nav-item">
         <a class="nav-link" [routerLink]="['/account-details']" tabindex="-1">My Account</a>
       </li>
 
       <li *ngIf="(isLogged$ | async)" class="nav-item">
-        <a class="nav-link" [routerLink]="['/my-conferences']" tabindex="-1">My Conferences</a>
+        <a class="nav-link" [routerLink]="['/conferences']" tabindex="-1">Conference Finder</a>
       </li>
 
       <li *ngIf="(isLogged$ | async)" class="nav-item">
-        <a class="nav-link" [routerLink]="['/conferences']" tabindex="-1">Conferences</a>
+        <a class="nav-link" [routerLink]="['/my-conferences']" tabindex="-1">My Conferences</a>
       </li>
 
       <a class="nav-link" style="position: absolute; right: 0; margin-right: 15%;" [routerLink]="['/faq']">

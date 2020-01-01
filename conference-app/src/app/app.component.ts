@@ -7,7 +7,6 @@ import { UserFacade } from './store/features/user/facades/user.facade';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'ConferenceApp';
 
   constructor(
     protected _userFacade: UserFacade

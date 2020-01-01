@@ -65,8 +65,7 @@
                         </mat-form-field>
 
                         <mat-form-field class="col-md-4">
-                            <input matInput
-                                value="{{conference?.address?.street}} {{conference?.address?.householdNumber}}"
+                            <input matInput value="{{conference?.address?.street}} {{conference?.address?.householdNumber}}"
                                 placeholder="Street" disabled>
                         </mat-form-field>
 
@@ -106,11 +105,13 @@
                         <p>Conference tickets prices:</p>
 
                         <mat-form-field class="col-md-6">
-                            <input matInput value="{{conference?.priceRange?.lowest}}" placeholder="Lowest" disabled>
+                            <input matInput value="{{conference?.priceRange?.currency}}{{conference?.priceRange?.lowest}}"
+                                placeholder="Lowest" disabled>
                         </mat-form-field>
 
                         <mat-form-field class="col-md-6">
-                            <input matInput value="{{conference?.priceRange?.highest}}" placeholder="Highest" disabled>
+                            <input matInput value="{{conference?.priceRange?.currency}}{{conference?.priceRange?.highest}}"
+                                placeholder="Highest" disabled>
                         </mat-form-field>
                     </div>
                 </div>
