@@ -26,9 +26,8 @@ export class OpenMapsComponent implements OnInit {
 
   confList$: Observable<any> = this._conferenceFacade.getAvailableConferences().pipe(
     tap(conferences => {
-      console.log('available: ', conferences);
       conferences.forEach(conf => {
-        this.addPoint(conf.latitude, conf.longitude, conf.name);
+        this.addPoint(conf.address.latitude, conf.address.longitude, conf.name);
       });
       this.confList = conferences;
     })
@@ -75,10 +74,6 @@ export class OpenMapsComponent implements OnInit {
         zoom: 10
       })
     });
-
-    // this.confList.forEach(conf => {
-    //   this.addPoint(conf.latitude, conf.longitude, conf.name);
-    // });
   }
 
   getCoord(event: any) {
@@ -137,7 +132,7 @@ export class OpenMapsComponent implements OnInit {
   findClosestConference(lat, long) {
     let dist = [];
     this.confList.forEach(conf => {
-      let sum = Math.pow(conf.latitude - lat, 2) + Math.pow(conf.longitude - long, 2)
+      let sum = Math.pow(conf.address.latitude - lat, 2) + Math.pow(conf.address.longitude - long, 2)
       let d = Math.pow(sum, 1 / 2);
       dist.push(d);
     });

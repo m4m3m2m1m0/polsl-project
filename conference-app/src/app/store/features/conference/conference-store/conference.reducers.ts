@@ -4,12 +4,14 @@ import { ConferenceActions } from './conference-action-types';
 
 export interface ConferenceState {
     currentConference: any;
-    availableConferences: any[]
+    availableConferences: any[];
+    userInterestedConferences: any[];
 }
 
 export const initialConferenceState: ConferenceState = {
     currentConference: null,
-    availableConferences: []
+    availableConferences: [],
+    userInterestedConferences: []
 };
 
 export const conferenceReducer = createReducer(
@@ -24,6 +26,12 @@ export const conferenceReducer = createReducer(
         return {
             ...state,
             availableConferences: action.conferences
+        }
+    }),
+    on(ConferenceActions.getUserInterestedConferencesSuccess, (state, action) => {
+        return {
+            ...state,
+            userInterestedConferences: action.conferences
         }
     })
 )

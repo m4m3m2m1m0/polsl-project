@@ -1,13 +1,19 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+import { ConferenceDetailsComponent } from './cms-components/conference/conference-details/conference-details.component';
+import { ConferenceListComponent } from './cms-components/conference/conference-list/conference-list.component';
+import { MyConferenceListComponent } from './cms-components/conference/my-conference-list/my-conference-list.component';
+import { OpenMapsComponent } from './cms-components/open-maps/open-maps/open-maps.component';
 import { LoginComponent } from './cms-components/sign-in-up/login/login.component';
 import { RegisterComponent } from './cms-components/sign-in-up/register/register.component';
-import { OpenMapsComponent } from './cms-components/open-maps/open-maps/open-maps.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'conference-map', component: OpenMapsComponent },
+  { path: 'my-conferences', component: MyConferenceListComponent },
+  { path: 'conference/:id', component: ConferenceDetailsComponent },
+  { path: 'conferences', component: ConferenceListComponent },
 ];
 
 @NgModule({

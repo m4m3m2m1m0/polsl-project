@@ -1,0 +1,124 @@
+<h1 mat-dialog-title>Adding New Cofnerence</h1>
+
+<mat-dialog-content>
+
+    <div class="row" style="max-width: 500px;">
+
+        <div class="col-md-12 basic-section">
+
+            <div class="col-md-12 section-header">
+
+                <h3>Basic Information</h3>
+                <mat-form-field class="col-md-6">
+                    <input matInput [(ngModel)]="conferenceName" placeholder="Name">
+                </mat-form-field>
+
+                <mat-form-field class="col-md-6">
+                    <input matInput [(ngModel)]="conferenceDescription" placeholder="Description">
+                </mat-form-field>
+
+                <mat-form-field class="col-md-6">
+                    <input matInput [(ngModel)]="conferenceStartDate" [matDatepicker]="picker" placeholder="Start Date">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field class="col-md-6">
+                    <input matInput [(ngModel)]="conferenceEndDate" [matDatepicker]="picker2" placeholder="End Date">
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-12 section-header">
+                <h3>Tickets</h3>
+
+                <mat-form-field class="col-md-6">
+                    <input matInput [(ngModel)]="conferenceLowestPrice" placeholder="Lowest Price">
+                </mat-form-field>
+
+                <mat-form-field class="col-md-6">
+                    <input matInput [(ngModel)]="conferenceHighestPrice" placeholder="Highest Price">
+                </mat-form-field>
+
+                <mat-form-field class="col-md-6">
+                    <input matInput [(ngModel)]="conferenceCurrencySymbol" placeholder="Currency Symbol">
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-12 section-header">
+                <h3>Address Information</h3>
+
+                <mat-form-field class="col-md-6">
+                    <input matInput [(ngModel)]="conferenceCountry" placeholder="Country">
+                </mat-form-field>
+
+                <mat-form-field class="col-md-6">
+                    <input matInput [(ngModel)]="conferenceCity" placeholder="City">
+                </mat-form-field>
+
+                <mat-form-field class="col-md-6">
+                    <input matInput [(ngModel)]="conferencePostalCode" placeholder="Postal Code">
+                </mat-form-field>
+
+                <mat-form-field class="col-md-6">
+                    <input matInput [(ngModel)]="conferenceStreet" placeholder="Street">
+                </mat-form-field>
+
+                <mat-form-field class="col-md-6">
+                    <input matInput [(ngModel)]="conferenceHouseholdNumber" placeholder="Household Number">
+                </mat-form-field>
+
+                <div class="row">
+                    <div class="section-header col-md-12">
+                        <div id="map" (click)="getCoord($event)" class="map"></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-12 section-header">
+                <h3>Category</h3>
+
+                <mat-form-field class="col-md-6">
+                    <input matInput [(ngModel)]="conferenceCategory" placeholder="Main Category">
+                </mat-form-field>
+
+                <mat-list>
+                    <input [(ngModel)]="currentHashtag" [ngModelOptions]="{standalone: true}" />
+                    <button class="btn btn-primary hashtag-btn" (click)="addHashtag()" [disabled]="currentHashtag === null">Add
+                        Hashtag</button>
+                    <mat-list-item class="list-group-item col-md-6" *ngFor="let hashtag of hashtags">
+                        {{ hashtag?.name }}
+                        <a style="position: absolute; right: 0; margin-right: 2%; cursor: pointer;" (click)="removeHashtag(hashtag)"><i
+                                class="material-icons md-36">remove</i></a>
+                    </mat-list-item>
+                </mat-list>
+
+            </div>
+
+            <div class="col-md-12 section-header">
+                <h3>Additional Information</h3>
+
+                <mat-form-field class="col-md-6">
+                    <input matInput [(ngModel)]="conferenceUrl" placeholder="Website">
+                </mat-form-field>
+
+                <mat-form-field class="col-md-6">
+                    <input matInput [(ngModel)]="conferenceEmail" placeholder="Email">
+                </mat-form-field>
+
+                <mat-form-field class="col-md-6">
+                    <input matInput [(ngModel)]="conferencePhone" placeholder="Phone">
+                </mat-form-field>
+            </div>
+
+        </div>
+    </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button class="btn btn-primary" (click)="close()">Close</button>
+    <button class="btn btn-primary" (click)="addConference()" [disabled]="isConferenceCorrect()">Add Conference</button>
+</mat-dialog-actions>

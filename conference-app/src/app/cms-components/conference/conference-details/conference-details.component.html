@@ -1,0 +1,133 @@
+<div class="wrapper">
+
+    <h3>Conference {{ conference?.name }}</h3>
+
+
+    <div class="mat-elevation-z8 conference-elevation">
+
+        <ng-container *ngIf="conference$ | async as conference">
+
+            <div class="conference-inputs row">
+
+                <div class="conference-hashtags col-md-12">
+                    <p class="hashtag-header">Main Activities</p>
+                    <ng-container *ngFor="let hashtag of conference.hashtags">
+                        <span class="conference-hashtag">{{ hashtag }}</span>
+                    </ng-container>
+                </div>
+
+                <div class="col-md-5 basic-section mat-elevation-z8">
+                    <div class="col-md-12 section-header">
+                        <h5>Basic Information</h5>
+                    </div>
+                    <div class="col-md-12 section-header">
+
+                        <mat-form-field class="col-md-4">
+                            <input matInput value="{{conference?.name}}" placeholder="Name" disabled>
+                        </mat-form-field>
+
+                        <mat-form-field class="col-md-4">
+                            <input matInput value="{{conference?.category}}" placeholder="Main Category" disabled>
+                        </mat-form-field>
+
+                        <mat-form-field class="col-md-4">
+                            <input matInput value="{{conference?.description}}" placeholder="Description" disabled>
+                        </mat-form-field>
+
+                        <mat-form-field class="col-md-4">
+                            <input matInput value="{{conference?.startDate}}" placeholder="Start Date" disabled>
+                        </mat-form-field>
+
+                        <mat-form-field class="col-md-4">
+                            <input matInput value="{{conference?.endDate}}" placeholder="End Date" disabled>
+                        </mat-form-field>
+
+                    </div>
+                </div>
+
+                <div class="col-md-5 address-section mat-elevation-z8">
+                    <div class="col-md-12 section-header">
+                        <h5>Conference Address</h5>
+                    </div>
+                    <div class="col-md-12 section-header">
+
+                        <mat-form-field class="col-md-4">
+                            <input matInput value="{{conference?.address?.country}}" placeholder="Country" disabled>
+                        </mat-form-field>
+
+                        <mat-form-field class="col-md-4">
+                            <input matInput value="{{conference?.address?.city}}" placeholder="City" disabled>
+                        </mat-form-field>
+
+                        <mat-form-field class="col-md-4">
+                            <input matInput value="{{conference?.address?.postalCode}}" placeholder="Postal Code"
+                                disabled>
+                        </mat-form-field>
+
+                        <mat-form-field class="col-md-4">
+                            <input matInput
+                                value="{{conference?.address?.street}} {{conference?.address?.householdNumber}}"
+                                placeholder="Street" disabled>
+                        </mat-form-field>
+
+                    </div>
+                </div>
+
+                <div class="col-md-5 additional-section mat-elevation-z8">
+                    <div class="col-md-12 section-header">
+                        <h5>Additional Information</h5>
+                    </div>
+                    <div class="col-md-12 section-header">
+
+                        <p>To find more information text us or check our site!</p>
+
+                        <mat-form-field class="col-md-6">
+                            <input matInput value="{{conference?.contact?.phone}}" placeholder="Phone" disabled>
+                        </mat-form-field>
+
+                        <a href="https://{{conference?.contact?.url}}">
+                            <mat-form-field class="col-md-6">
+                                <input matInput value="{{conference?.contact?.url}}" placeholder="Website" disabled>
+                            </mat-form-field>
+                        </a>
+
+                        <mat-form-field class="col-md-6">
+                            <input matInput value="{{conference?.contact?.email}}" placeholder="Email" disabled>
+                        </mat-form-field>
+
+                    </div>
+                </div>
+
+                <div class="col-md-4 price-section mat-elevation-z8">
+                    <div class="section-header col-md-12">
+                        <h5>Conference Tickets</h5>
+                    </div>
+                    <div class="section-header col-md-12">
+                        <p>Conference tickets prices:</p>
+
+                        <mat-form-field class="col-md-6">
+                            <input matInput value="{{conference?.priceRange?.lowest}}" placeholder="Lowest" disabled>
+                        </mat-form-field>
+
+                        <mat-form-field class="col-md-6">
+                            <input matInput value="{{conference?.priceRange?.highest}}" placeholder="Highest" disabled>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+            </div>
+        </ng-container>
+
+        <div class="row">
+            <div class="col-md-10 map-section mat-elevation-z8">
+                <div class="section-header col-md-12">
+                    <h5>Conference Map</h5>
+                </div>
+                <div class="section-header col-md-12">
+                    <div id="map" class="map"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

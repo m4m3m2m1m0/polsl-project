@@ -1,0 +1,62 @@
+.wrapper {
+  margin-left: 10%;
+}
+
+h3 {
+  padding: 40px 0 40px 0;
+  font-weight: lighter;
+}
+
+.conference-elevation {
+  max-width: 70%;
+  margin-bottom: 10%;
+}
+
+.conference-inputs {
+  padding: 2% 0 0 5%;
+}
+
+.conference-hashtag {
+  margin-left: 2%;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.price-section {
+  display: inline-block;
+  margin: 5% 0 0 5%;
+}
+
+.address-section {
+  display: inline-block;
+  margin: 5% 0 0 5%;
+}
+
+.section-header {
+  padding: 20px 0 0 20px;
+}
+
+.additional-section {
+  display: inline-block;
+  margin: 5% 0 0 5%;
+}
+
+.basic-section {
+  display: inline-block;
+  margin: 5% 0 0 5%;
+}
+
+.map-section {
+  display: inline-block;
+  margin: 5% 0 5% 10%;
+  .map {
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+
+.hashtag-header {
+  font-weight: lighter;
+  font-size: 24px;
+}

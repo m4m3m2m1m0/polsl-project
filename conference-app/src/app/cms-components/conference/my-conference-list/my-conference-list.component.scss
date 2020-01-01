@@ -1,0 +1,73 @@
+.conference-list {
+  padding-top: 5%;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.wrapper {
+  margin-left: 10%;
+}
+
+.header {
+  padding: 40px 0 40px 0;
+  font-weight: lighter;
+}
+
+.elevation-header {
+  padding: 2% 0 0 5%;
+  font-weight: lighter;
+}
+
+.conference-elevation {
+  max-width: 70%;
+}
+
+table {
+  margin-left: 5%;
+  width: 90%;
+}
+
+tr.example-detail-row {
+  height: 0;
+}
+
+.example-element-row td {
+  border-bottom-width: 0;
+}
+
+.example-element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.example-element-diagram {
+  min-width: 80px;
+  border: 2px solid black;
+  padding: 8px;
+  font-weight: lighter;
+  margin: 8px 0;
+  height: 104px;
+}
+
+.example-element-symbol {
+  font-weight: bold;
+  font-size: 40px;
+  line-height: normal;
+}
+
+.example-element-description {
+  padding: 16px;
+}
+
+.example-element-description-attribution {
+  opacity: 0.5;
+}
+
+.basic-section {
+  display: inline-block;
+  margin: 2% 0 2% 5%;
+}
+
+.tab-icon {
+  cursor: pointer;
+}

@@ -13,3 +13,8 @@ export const selectAvailableConferences = createSelector(
     selectConferenceState, 
     state => state.availableConferences
 );
+
+export const selectUserInterestedConferences = createSelector(
+    selectConferenceState, 
+    state => state.userInterestedConferences
+);
