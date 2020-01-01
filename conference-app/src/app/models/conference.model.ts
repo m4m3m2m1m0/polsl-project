@@ -5,6 +5,14 @@ export interface Address {
     street: string;
     householdNumber: string;
     postalCode: string;
+    latitude: string;
+    longitude: string;
+}
+
+export interface Contact {
+    url: string;
+    email: string;
+    phone: string;
 }
 
 export interface PriceRange {
@@ -21,7 +29,7 @@ export interface Conference {
     name?: string;
     description?: string;
     priceRange?: PriceRange;
-    city?: string;
     hashtags?: string[];
-    address: Address;
+    address?: Address;
+    contact?: Contact
 }

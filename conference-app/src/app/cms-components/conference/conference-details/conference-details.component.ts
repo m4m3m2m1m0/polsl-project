@@ -22,7 +22,7 @@ export class ConferenceDetailsComponent implements OnInit {
     .pipe(
       tap(conference => {
         this.conference = conference;
-        this.addPoint(conference.latitude, conference.longitude, conference.name);
+        this.addPoint(conference.address.latitude, conference.address.longitude, conference.name);
       })
     )
 

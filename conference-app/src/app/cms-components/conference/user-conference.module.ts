@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MatDatepickerModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatPaginatorModule } from '@angular/material';
+import { FormsModule } from '@angular/forms';
+import { MatDatepickerModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatListModule, MatPaginatorModule } from '@angular/material';
 import { MatCardModule } from '@angular/material/card';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
@@ -18,6 +19,7 @@ import { NewConferenceDialogComponent } from './new-conference-dialog/new-confer
   imports: [
     CommonModule,
     RouterModule,
+    FormsModule,
     MatDialogModule,
     MatSortModule,
     MatTableModule,
@@ -25,7 +27,8 @@ import { NewConferenceDialogComponent } from './new-conference-dialog/new-confer
     MatInputModule,
     MatDatepickerModule,
     MatPaginatorModule,
-    MatCardModule
+    MatCardModule,
+    MatListModule
   ],
   entryComponents: [ConferenceListComponent, NewConferenceDialogComponent, MyConferenceListComponent]
 })
