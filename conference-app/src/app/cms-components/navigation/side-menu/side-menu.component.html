@@ -1,19 +1,40 @@
 <div class="wrapper">
 
-        <!-- Sidebar -->
-        <nav id="sidebar">
-      
+  <!-- Sidebar -->
+  <nav id="sidebar">
+
+    <div class="side-bar-wrapper">
+      <img class="devix-logo-side-bar" src="assets/img/logo.png" alt="Devix Logo">
+
+    </div>
+
+    <br><br>
+
+    <div class="news-feed">
+
+      <h2>News Feed</h2>
+
+      <ng-container *ngFor="let news of newses | async">
+        <div class="news">
+          <h4> {{ news?.title }}</h4>
+          <span class="news-subtitle">
+            {{ news?.subtitle }}
+          </span>
           <br>
-            some logo
+          <span class="news-description">
+            {{ news?.description }}
+          </span>
           <br>
-      
+          <span class="news-date">
+            {{ news?.date | date:'short' }}
+          </span>
           <br><br>
-          test
-        </nav>
-      
-        <!-- Page Content -->
-        <div id="content">
-          <!-- We'll fill this with dummy content -->
         </div>
-      
-      </div>
+      </ng-container>
+
+    </div>
+
+  </nav>
+
+
+</div>

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NewsService } from 'src/app/occ/services/news/news.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-side-menu',
@@ -7,7 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SideMenuComponent implements OnInit {
 
-  constructor() { }
+  newses: Observable<any> = this._newsService.getNewestNews();
+  
+  constructor(
+    protected _newsService: NewsService
+  ) { }
 
   ngOnInit() {
   }

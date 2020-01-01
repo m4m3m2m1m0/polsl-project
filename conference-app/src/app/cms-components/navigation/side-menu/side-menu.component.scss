@@ -1,14 +1,69 @@
 .wrapper {
-    align-items: stretch;
-    background-color: rgb(224, 217, 202);
-    position: fixed;
-    right: 0;
-    min-height: 100vh;
-    margin-top: -75px;
-    z-index: -1;
-  }
+  align-items: stretch;
+  background-color: rgb(239, 239, 239);
+  position: fixed;
+  right: 0;
+  min-height: 100vh;
+  margin-top: -100px;
+  z-index: -1;
+}
   
-  #sidebar {
-    min-width: 250px;
-    max-width: 250px;
+#sidebar {
+  min-width: 250px;
+  max-width: 250px;
+}
+
+.side-bar-wrapper {
+  padding-top: 5%;
+  width: 50%;
+  margin-left: 20%;
+}
+
+.devix-logo-side-bar {
+  display: block;
+  max-width: 70px;
+  margin: 2% auto 5% auto;
+}
+
+.news {
+  border-style: none none solid none;
+  border-color: rgb(255, 255, 255);
+  border-width: 4px;
+
+  .news-subtitle {
+    padding: 0 0 0 10px;
+    font-size: 17px;
+    font-style: italic; 
   }
+
+  .news-description {
+    padding: 0 0 0 10px;
+    font-size: 17px;
+    text-align: justify;
+  }
+
+  .news-date {
+    float: right;
+    padding-right: 10px;
+    padding-top: 10px;
+    font-size: 13px;
+  }
+}
+
+h2 {
+  padding: 0 0 15px 10px;
+  text-transform: uppercase;
+  font-weight: lighter;
+  font-size: 22px;
+  border-style: none none solid none;
+  border-color: rgb(255, 255, 255);
+  border-width: 4px;
+}
+
+h4 {
+  padding: 10px 0 0 0;
+  font-size: 18px;
+  text-transform: capitalize;
+  font-weight: bolder;
+  text-align: center;
+}
