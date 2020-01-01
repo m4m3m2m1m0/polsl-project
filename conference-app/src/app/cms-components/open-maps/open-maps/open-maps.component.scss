@@ -1,10 +1,22 @@
+h3 {
+  padding: 0 0 20px 0;
+  font-weight: lighter;
+}
+
+p {
+  padding-bottom: 10px;
+}
+
+.map-container {
+  margin-top: 2%;
+}
+
 .map-info-wrapper {
-  width: 50%;
+  width: 70%;
   margin: 0 auto;
 }
 
 .map {
-  height: 70%;
-  width: 50%;
-  margin: 0 auto;
+  max-height: 70%;
+  max-width: 80%;
 }
