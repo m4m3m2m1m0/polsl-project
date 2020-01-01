@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserFacade } from 'src/app/store/features/user/facades/user.facade';
 
@@ -7,16 +7,13 @@ import { UserFacade } from 'src/app/store/features/user/facades/user.facade';
   templateUrl: './nav-menu.component.html',
   styleUrls: ['./nav-menu.component.scss']
 })
-export class NavMenuComponent implements OnInit {
+export class NavMenuComponent {
 
   isLogged$: Observable<boolean> = this._userFacade.isUserLogged();;
 
   constructor(
     protected _userFacade: UserFacade
   ) { }
-
-  ngOnInit() {
-  }
 
   logout() {
     this._userFacade.logutUser();
