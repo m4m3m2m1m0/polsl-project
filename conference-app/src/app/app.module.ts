@@ -18,6 +18,7 @@ import { OpenMapsModule } from './cms-components/open-maps/open-maps.module';
 import { ConferenceService } from './occ/services/conference/conference.service';
 import { ConferenceModule } from './store/features/conference/conference.module';
 import { UserConferenceModule } from './cms-components/conference/user-conference.module';
+import { HomepageModule } from './cms-components/homepage/homepage.module';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { UserConferenceModule } from './cms-components/conference/user-conferenc
     GlobalMessageModule,
     UserModule,
     ConferenceModule,
+    HomepageModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
     !environment.production ? StoreDevtoolsModule.instrument() : []
