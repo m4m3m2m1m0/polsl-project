@@ -5,7 +5,7 @@ import { tap } from 'rxjs/operators';
 import { ConferenceFacade } from 'src/app/store/features/conference/facades/conference.facade';
 import { ConferenceDialogComponent } from '../conference-dialog/conference-dialog.component';
 
-declare var ol: any;
+declare let ol: any;
 
 @Component({
   selector: 'app-open-maps',
@@ -14,13 +14,14 @@ declare var ol: any;
 })
 export class OpenMapsComponent implements OnInit {
 
-  startDate;
-  endDate;
+  startDate: Date = new Date();
+  endDate: Date;
 
   latitude: number = 18.5204;
   longitude: number = 73.8567;
 
   map: any;
+  vectorLayers: any[] = [];
 
   confList: any[];
 
@@ -33,7 +34,6 @@ export class OpenMapsComponent implements OnInit {
     })
   );
 
-  vectorLayers: any[] = [];
 
   constructor(
     protected _dialogService: MatDialog,
@@ -42,20 +42,16 @@ export class OpenMapsComponent implements OnInit {
 
   ngOnInit() {
 
+    let date = new Date();
+    this.endDate = new Date(date.getFullYear() + 1, date.getMonth(), date.getDate());
+
+    this._conferenceFacade.loadAvailableConferences(this.startDate, this.endDate)
+
     navigator.geolocation.getCurrentPosition(position => {
       this.latitude = position.coords.latitude
       this.longitude = position.coords.longitude
       this.setCenter();
     });
-
-    var mousePositionControl = new ol.control.MousePosition({
-      coordinateFormat: ol.coordinate.createStringXY(4),
-      projection: 'EPSG:4326',
-      className: 'custom-mouse-position',
-      target: document.getElementById('mouse-position'),
-      undefinedHTML: '&nbsp;'
-    });
-
 
     this.map = new ol.Map({
       target: 'map',
@@ -63,7 +59,7 @@ export class OpenMapsComponent implements OnInit {
         attributionOptions: {
           collapsible: false
         }
-      }).extend([mousePositionControl]),
+      }),
       layers: [
         new ol.layer.Tile({
           source: new ol.source.OSM()
@@ -77,19 +73,19 @@ export class OpenMapsComponent implements OnInit {
   }
 
   getCoord(event: any) {
-    var coordinate = this.map.getEventCoordinate(event);
+    let coordinate = this.map.getEventCoordinate(event);
     let cord = ol.proj.transform(coordinate, 'EPSG:3857', 'EPSG:4326')
     this.findClosestConference(cord[1], cord[0]);
   }
 
   setCenter() {
-    var view = this.map.getView();
+    let view = this.map.getView();
     view.setCenter(ol.proj.fromLonLat([this.longitude, this.latitude]));
     view.setZoom(8);
   }
 
   addPoint(lat: number, lng: number, confName: string) {
-    var vectorLayer = new ol.layer.Vector({
+    let vectorLayer = new ol.layer.Vector({
       source: new ol.source.Vector({
         features: [new ol.Feature({
           geometry: new ol.geom.Point(ol.proj.transform([lng, lat], 'EPSG:4326', 'EPSG:3857')),

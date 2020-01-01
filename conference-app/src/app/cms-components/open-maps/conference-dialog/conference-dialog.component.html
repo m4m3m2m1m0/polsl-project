@@ -1,15 +1,59 @@
-<h2 mat-dialog-title>{{description}}</h2>
-
 <mat-dialog-content>
 
-    Conference !!!
-    
-    {{ conference?.name }}
-    {{ conference?.address?.latitude }}
-    {{ conference?.address?.longitude }}
-    
+    <h3>Coneference {{conference?.name}}</h3>
+
+    <div class="section-wrapper mat-elevation-z8">
+
+        <div class="section-header">
+            <h5>Basic Information</h5>
+        </div>
+
+        <mat-form-field class="col-md-6">
+            <input matInput value="{{conference?.name}}" placeholder="Name" disabled>
+        </mat-form-field>
+
+        <mat-form-field class="col-md-6">
+            <input matInput value="{{conference?.category}}" placeholder="Main Category" disabled>
+        </mat-form-field>
+
+        <br>
+
+        <mat-form-field class="col-md-6">
+            <input matInput value="{{conference?.startDate}}" placeholder="Start Date" disabled>
+        </mat-form-field>
+
+
+        <mat-form-field class="col-md-6">
+            <input matInput value="{{conference?.endDate}}" placeholder="End Date" disabled>
+        </mat-form-field>
+
+        <br>
+
+        <mat-form-field class="col-md-6">
+            <input matInput value="{{conference?.description}}" placeholder="Description" disabled>
+        </mat-form-field>
+
+    </div>
+
+    <div class="section-wrapper mat-elevation-z8">
+
+        <div class="section-header">
+            <h5>Conference Address</h5>
+        </div>
+
+        <mat-form-field class="col-md-6">
+            <input matInput value="{{conference?.address?.country}}" placeholder="Country" disabled>
+        </mat-form-field>
+
+        <mat-form-field class="col-md-6">
+            <input matInput value="{{conference?.address?.city}}" placeholder="City" disabled>
+        </mat-form-field>
+        
+    </div>
+
 </mat-dialog-content>
 
 <mat-dialog-actions>
+    <button class="btn btn-primary" (click)="showConferenceDetails(conference?.id)">See Details</button>
     <button class="btn btn-primary" (click)="close()">Close</button>
 </mat-dialog-actions>
