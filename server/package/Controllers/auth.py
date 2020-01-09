@@ -5,6 +5,7 @@ from flask_jwt_extended import (create_access_token, create_refresh_token,
                                 jwt_required, jwt_refresh_token_required, get_jwt_identity, get_raw_jwt)
 from bson.json_util import dumps
 from bson.objectid import ObjectId
+from flask import abort
 
 auth = Blueprint('auth', __name__)
 
@@ -13,7 +14,8 @@ auth = Blueprint('auth', __name__)
 def register():
     user = request.get_json()
     userInDb = mongo.db.users.find_one({'userName': user['userName']})
-
+    if userInDb:
+        return abort(400, 'User with specified name already exists')
     user['password'] = argon2.generate_password_hash(user['password'])
     mongo.db.users.insert(user)
     del user['password']

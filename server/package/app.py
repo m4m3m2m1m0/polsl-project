@@ -2,7 +2,9 @@ import sys
 from flask import Flask
 from Controllers.auth import auth
 from Controllers.user import user
+from Controllers.conference import conference
 from Controllers.extensions import mongo, argon2, jwt
+from flask_cors import CORS
 
 app = Flask(__name__)
 
@@ -14,9 +16,11 @@ def create_app():
     mongo.init_app(app)
     argon2.init_app(app)
     jwt.init_app(app)
+    CORS(app)  # This will enable CORS for all routes
 
     app.register_blueprint(auth)
     app.register_blueprint(user)
+    app.register_blueprint(conference)
 
     if __name__ == '__main__':
         app.run(host='127.0.0.1', port=7000)

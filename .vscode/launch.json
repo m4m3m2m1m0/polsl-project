@@ -8,7 +8,7 @@
       "name": "Python: Current File",
       "type": "python",
       "request": "launch",
-      "program": "${workspaceFolder}/package/app.py",
+      "program": "${workspaceFolder}/server/package/app.py",
       "console": "integratedTerminal"
     }
   ]
