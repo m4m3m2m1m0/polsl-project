@@ -29,7 +29,10 @@ def saveConference():
 @conference.route('/conference/<id>', methods=['GET'])
 @jwt_required
 def getConference(id=''):
+    userId = request.args.get('userId')
     if(id != ''):
         return dumps(mongo.db.conference.find_one_or_404({'_id': ObjectId(id)}))
+    elif(userId != ''):
+        return dumps(list(mongo.db.conference.find({'userId': ObjectId(userId)})))
     else:
         return dumps(list(mongo.db.conference.find({})))
