@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Address, Conference, Contact, PriceRange } from 'src/app/models/conference.model';
+import { ConferenceService } from 'src/app/occ/services/conference/conference.service';
 
 declare var ol: any;
 
@@ -48,6 +49,7 @@ export class NewConferenceDialogComponent {
 
   constructor(
     private dialogRef: MatDialogRef<NewConferenceDialogComponent>,
+    protected _conferenceService:  ConferenceService,
     @Inject(MAT_DIALOG_DATA) data) {
   }
 
@@ -152,7 +154,7 @@ export class NewConferenceDialogComponent {
 
   addConference() {
     let conference = this.createConference();
-    // TODO: request to save conference //
+    this._conferenceService.addConference(conference).subscribe();
   }
 
   isConferenceCorrect() {
@@ -161,10 +163,10 @@ export class NewConferenceDialogComponent {
 
   createConference(): Conference {
 
-    let conference: Conference;
-    let priceRange: PriceRange;
-    let address: Address;
-    let contact: Contact;
+    let conference = new Conference();
+    let priceRange = new PriceRange();
+    let address = new Address();
+    let contact = new Contact();
 
     priceRange.lowest = this.conferenceLowestPrice;
     priceRange.highest = this.conferenceHighestPrice;
@@ -188,6 +190,7 @@ export class NewConferenceDialogComponent {
     conference.priceRange = priceRange;
     conference.address = address;
     conference.contact = contact;
+    conference.category = this.conferenceCategory;
 
     conference.address.latitude = this.conferenceLatitude.toString();
     conference.address.longitude = this.conferenceLongitude.toString();

@@ -1,5 +1,5 @@
 
-export interface Address {
+export class Address {
     country: string;
     city: string;
     street: string;
@@ -9,19 +9,19 @@ export interface Address {
     longitude: string;
 }
 
-export interface Contact {
+export class Contact {
     url: string;
     email: string;
     phone: string;
 }
 
-export interface PriceRange {
+export class PriceRange {
     lowest: string;
     highest: string;
     currency: string;
 }
 
-export interface Conference {
+export class Conference {
     id: string;
     category?: string;
     startDate?: string;

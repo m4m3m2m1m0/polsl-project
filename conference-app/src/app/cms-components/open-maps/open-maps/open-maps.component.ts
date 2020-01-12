@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap, filter } from 'rxjs/operators';
 import { ConferenceFacade } from 'src/app/store/features/conference/facades/conference.facade';
 import { ConferenceDialogComponent } from '../conference-dialog/conference-dialog.component';
 
@@ -26,14 +26,14 @@ export class OpenMapsComponent implements OnInit {
   confList: any[];
 
   confList$: Observable<any> = this._conferenceFacade.getAvailableConferences().pipe(
+    filter(confernces => confernces !== null),
     tap(conferences => {
       conferences.forEach(conf => {
-        this.addPoint(conf.address.latitude, conf.address.longitude, conf.name);
+        this.addPoint(+(+conf.address.latitude).toFixed(5), +(+conf.address.longitude).toFixed(5), conf.name);
       });
       this.confList = conferences;
     })
   );
-
 
   constructor(
     protected _dialogService: MatDialog,
@@ -85,7 +85,7 @@ export class OpenMapsComponent implements OnInit {
   }
 
   addPoint(lat: number, lng: number, confName: string) {
-    let vectorLayer = new ol.layer.Vector({
+    var vectorLayer = new ol.layer.Vector({
       source: new ol.source.Vector({
         features: [new ol.Feature({
           geometry: new ol.geom.Point(ol.proj.transform([lng, lat], 'EPSG:4326', 'EPSG:3857')),
@@ -110,6 +110,7 @@ export class OpenMapsComponent implements OnInit {
         })
       }),
     });
+
     this.vectorLayers.push(vectorLayer);
     this.map.addLayer(vectorLayer);
   }
@@ -120,7 +121,7 @@ export class OpenMapsComponent implements OnInit {
       this.vectorLayers.forEach(vector => {
         this.map.removeLayer(vector);
       });
-      
+
       this._conferenceFacade.loadAvailableConferences(this.startDate, this.endDate)
     }
   }

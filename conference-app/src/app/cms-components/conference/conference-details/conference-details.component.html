@@ -12,7 +12,7 @@
                 <div class="conference-hashtags col-md-12">
                     <p class="hashtag-header">Main Activities</p>
                     <ng-container *ngFor="let hashtag of conference.hashtags">
-                        <span class="conference-hashtag">{{ hashtag }}</span>
+                        <span class="conference-hashtag">{{ hashtag?.name }}</span>
                     </ng-container>
                 </div>
 

@@ -53,8 +53,8 @@ export class ConferenceListComponent implements OnInit {
     this._conferenceFacade.loadAvailableConferences(new Date())
   }
 
-  showConferenceDetails(row: Conference) {
-    this._router.navigateByUrl(`/conference/${row.id}`);
+  showConferenceDetails(row: any) {
+    this._router.navigateByUrl(`/conference/${row._id.$oid}`);
   }
 
   sortData(sort: Sort) {

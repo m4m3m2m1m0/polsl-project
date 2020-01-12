@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { Conference } from 'src/app/models/conference.model';
+import { environment } from 'src/environments/environment';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -26,36 +28,29 @@ export class ConferenceService {
 
 
   getAvailableConferences(startDate?: any, endDate?: any): Observable<any> {
-
-    let tempList = [];
-
-    this.confList.forEach(conf => {
-      if (startDate < new Date(conf.startDate)) tempList.push(conf);
-    });
-
-    return of(tempList);
-    // const url = `${environment.baseServerUrl}/conferences`;
-    // return this._http
-    //   .post<User>(url, loginForm);
+    const url = `${environment.baseServerUrl}/conference`;
+    return this._http
+      .get<any>(url);
   }
 
   getConferenceForId(conferenceId: string): Observable<any> {
-    console.log(conferenceId);
-
-    let conf = this.confList.filter(c => c.id === conferenceId)[0]
-    return of(conf);
-    // return of((this.confList.filter(c => c.id === conferenceId))[0]);
-    // const url = `${environment.baseServerUrl}/conferences`;
-    // return this._http
-    //   .post<User>(url, loginForm);
+    const url = `${environment.baseServerUrl}/conference/${conferenceId}`;
+    return this._http
+      .get<any>(url);
   }
 
   getUserInterestedConferences(userName: any) {
+    const url = `${environment.baseServerUrl}/conference`;
+    return this._http
+      .get<any>(url);
+  }
 
-    return of(this.favouriteConfList);
-    // const url = `${environment.baseServerUrl}/conferences`;
-    // return this._http
-    //   .post<User>(url, loginForm);
+  addConference(conference: any) {
+
+    const url = `${environment.baseServerUrl}/conference`;
+    return this._http
+      .post<Conference>(url, conference)
+      .pipe(catchError((error: any) => throwError(error.json())));      
   }
 
 }

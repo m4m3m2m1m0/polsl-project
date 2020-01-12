@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap, filter } from 'rxjs/operators';
 import { ConferenceFacade } from 'src/app/store/features/conference/facades/conference.facade';
 import { Conference } from 'src/app/models/conference.model';
 
@@ -20,9 +20,10 @@ export class ConferenceDetailsComponent implements OnInit {
   conference$: Observable<any> = this._conferenceFacade
     .getCurrentConference()
     .pipe(
+      filter(conference => conference !== null),
       tap(conference => {
         this.conference = conference;
-        this.addPoint(conference.address.latitude, conference.address.longitude, conference.name);
+        this.addPoint(+(+conference.address.latitude).toFixed(5), +(+conference.address.longitude).toFixed(5), conference.name);
       })
     )
 
