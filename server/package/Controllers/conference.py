@@ -1,11 +1,20 @@
 from flask import Blueprint
 from flask import request
+from flask import jsonify
 from .extensions import mongo
 from bson.json_util import dumps
 from bson.objectid import ObjectId
 from flask_jwt_extended import jwt_required
 
 conference = Blueprint('conference', __name__)
+
+
+@conference.route('/conference', methods=['DELETE'])
+@jwt_required
+def deleteConference():
+    conf = request.get_json()
+    res = mongo.db.conference.delete_one({'_id': ObjectId(conf['id'])})
+    return jsonify(success=True)
 
 
 @conference.route('/conference', methods=['POST'])
