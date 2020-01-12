@@ -5,12 +5,14 @@ import { UserActions } from './user-action-types';
 
 export interface UserState {
     user: User;
-    userLogged: boolean
+    userLogged: boolean;
+    userToken: string;
 }
 
 export const initialUserState: UserState = {
     user: undefined,
-    userLogged: false
+    userLogged: false,
+    userToken: null
 };
 
 export const userReducer = createReducer(
@@ -39,6 +41,12 @@ export const userReducer = createReducer(
             ...state,
             user: action.user,
             userLogged: true
+        }
+    }),
+    on(UserActions.setUserToken, (state, action) => {
+        return {
+            ...state,
+            userToken: action.token
         }
     }),
 )

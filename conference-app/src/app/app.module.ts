@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser/';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -20,6 +20,7 @@ import { UserService } from './occ/services/user/user.service';
 import { ConferenceModule } from './store/features/conference/conference.module';
 import { GlobalMessageModule } from './store/features/global-message/global-message.module';
 import { UserModule } from './store/features/user/user.module';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,10 @@ import { UserModule } from './store/features/user/user.module';
     EffectsModule.forRoot([]),
     !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
-  providers: [UserService, ConferenceService, NewsService],
+  providers: [
+    UserService, ConferenceService, NewsService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

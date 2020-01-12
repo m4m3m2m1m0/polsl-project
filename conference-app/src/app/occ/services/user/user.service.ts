@@ -15,14 +15,12 @@ export class UserService {
   ) { }
 
   loginUser(loginForm: any): Observable<any> {
-
     const url = `${environment.baseServerUrl}/login`;
     return this._http
       .post<User>(url, loginForm);
   }
 
   registerUser(registerForm: any): Observable<any> {
-
     const url = `${environment.baseServerUrl}/register`;
     return this._http
       .post<User>(url, registerForm)

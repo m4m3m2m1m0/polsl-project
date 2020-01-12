@@ -29,3 +29,11 @@ export const registerUserSuccess = createAction(
     props<{ user: User }>()
 );
 
+export const setUserToken = createAction(
+    "[User State] Set User Token",
+    props<{ token: string }>()
+);
+
+export const removeUserToken = createAction(
+    "[User State] Remove User Token"
+);

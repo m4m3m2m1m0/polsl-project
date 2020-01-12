@@ -34,4 +34,8 @@ export class UserFacade {
     this._store.dispatch(UserActions.registerUser({ registerForm }));
   }
 
+  setUserToken(authToken: string): void {
+    this._store.dispatch(UserActions.setUserToken({ token: authToken }));
+  }
+
 }
