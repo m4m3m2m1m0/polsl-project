@@ -1,3 +1,4 @@
+import { User } from './user.model';
 
 export class Address {
     country: string;
@@ -31,5 +32,6 @@ export class Conference {
     priceRange?: PriceRange;
     hashtags?: string[];
     address?: Address;
-    contact?: Contact
+    contact?: Contact;
+    userId?: string;
 }
