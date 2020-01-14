@@ -4,7 +4,7 @@ from Controllers.auth import auth
 from Controllers.user import user
 from Controllers.conference import conference
 from Controllers.news import news
-from Controllers.favoriteConverence import favoriteConverence
+from Controllers.favoriteConference import favoriteConference
 from Controllers.extensions import mongo, argon2, jwt
 from flask_cors import CORS
 
@@ -24,7 +24,7 @@ def create_app():
     app.register_blueprint(user)
     app.register_blueprint(conference)
     app.register_blueprint(news)
-    app.register_blueprint(favoriteConverence)
+    app.register_blueprint(favoriteConference)
 
     if __name__ == '__main__':
         app.run(host='127.0.0.1', port=7000)
