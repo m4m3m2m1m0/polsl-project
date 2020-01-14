@@ -57,7 +57,7 @@
                 <ng-container matColumnDef="priceRange">
                     <th mat-header-cell *matHeaderCellDef>Price Range</th>
                     <td mat-cell *matCellDef="let element">
-                        {{ element.priceRange.currency }}{{ element.priceRange.lowest }}-{{ element.priceRange.highest
+                        {{ element?.priceRange?.currency }}{{ element?.priceRange?.lowest }}-{{ element?.priceRange?.highest
                         }}
                     </td>
                 </ng-container>
@@ -83,7 +83,7 @@
         </ng-container>
 
         <!-- TODO: display user conferences insteaf favourite!!! -->
-        <ng-container *ngIf="userInterestedConferences$ | async as conferences">
+        <ng-container *ngIf="userConferences$ | async as conferences">
 
             <h3 class="elevation-header">My Conferences</h3>
 
@@ -115,7 +115,8 @@
                 <ng-container matColumnDef="priceRange">
                     <th mat-header-cell *matHeaderCellDef>Price Range</th>
                     <td mat-cell *matCellDef="let element">
-                        {{ element.priceRange.currency }}{{ element.priceRange.lowest }}-{{ element.priceRange.highest
+                        {{ element?.priceRange?.currency }}{{ element?.priceRange?.lowest }}-{{
+                        element?.priceRange?.highest
                         }}
                     </td>
                 </ng-container>

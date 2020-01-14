@@ -18,10 +18,6 @@
         <a class="nav-link" [routerLink]="['/my-conferences']" tabindex="-1">My Conferences</a>
       </li>
 
-      <a class="nav-link" style="position: absolute; right: 0; margin-right: 15%;" [routerLink]="['/faq']">
-        FAQ
-      </a>
-
     </ul>
 
 
@@ -30,7 +26,7 @@
       Signin
     </button>
 
-    <button *ngIf="!(isLogged$ | async)" class="btn btn-primary" style="float: right" [routerLink]="['/login']">
+    <button *ngIf="!(isLogged$ | async)" class="btn btn-primary" style="margin-left: 2%; float: right" [routerLink]="['/login']">
       Login
     </button>
 

@@ -1,7 +1,9 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Address, Conference, Contact, PriceRange } from 'src/app/models/conference.model';
-import { ConferenceService } from 'src/app/occ/services/conference/conference.service';
+import { ConferenceFacade } from 'src/app/store/features/conference/facades/conference.facade';
+import { UserFacade } from 'src/app/store/features/user/facades/user.facade';
+import { User } from '../../../models/user.model';
 
 declare var ol: any;
 
@@ -12,6 +14,7 @@ declare var ol: any;
 })
 export class NewConferenceDialogComponent {
 
+  user: User;
   description: string;
 
   currentHashtag: string = null;
@@ -49,7 +52,8 @@ export class NewConferenceDialogComponent {
 
   constructor(
     private dialogRef: MatDialogRef<NewConferenceDialogComponent>,
-    protected _conferenceService:  ConferenceService,
+    protected _conferenceFacade: ConferenceFacade,
+    protected _userFacade: UserFacade,
     @Inject(MAT_DIALOG_DATA) data) {
   }
 
@@ -78,6 +82,10 @@ export class NewConferenceDialogComponent {
         zoom: 15
       })
     });
+
+    // Get current user //
+    this._userFacade.getCurrentUser().subscribe(user => this.user = user);
+
   }
 
   setCenter() {
@@ -154,7 +162,8 @@ export class NewConferenceDialogComponent {
 
   addConference() {
     let conference = this.createConference();
-    this._conferenceService.addConference(conference).subscribe();
+    this._conferenceFacade.addNewConference(conference);
+    this.close();
   }
 
   isConferenceCorrect() {
@@ -167,7 +176,7 @@ export class NewConferenceDialogComponent {
     let priceRange = new PriceRange();
     let address = new Address();
     let contact = new Contact();
-
+    
     priceRange.lowest = this.conferenceLowestPrice;
     priceRange.highest = this.conferenceHighestPrice;
     priceRange.currency = this.conferenceCurrencySymbol;
@@ -194,6 +203,8 @@ export class NewConferenceDialogComponent {
 
     conference.address.latitude = this.conferenceLatitude.toString();
     conference.address.longitude = this.conferenceLongitude.toString();
+
+    conference.userId = this.user._id;
 
     return conference;
   }
