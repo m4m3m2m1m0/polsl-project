@@ -6,12 +6,14 @@ export interface ConferenceState {
     currentConference: any;
     availableConferences: any[];
     userInterestedConferences: any[];
+    userConferences: any[];
 }
 
 export const initialConferenceState: ConferenceState = {
     currentConference: null,
     availableConferences: [],
-    userInterestedConferences: []
+    userInterestedConferences: [],
+    userConferences: []
 };
 
 export const conferenceReducer = createReducer(
@@ -32,6 +34,12 @@ export const conferenceReducer = createReducer(
         return {
             ...state,
             userInterestedConferences: action.conferences
+        }
+    }),
+    on(ConferenceActions.loadUserConferencesSuccess, (state, action) => {
+        return {
+            ...state,
+            userConferences: action.conferences
         }
     })
 )

@@ -32,11 +32,27 @@ export class ConferenceFacade {
     }
 
     loadUserInterestedConferences(userName: any): void {
-        this._store.dispatch(ConferenceActions.getUserInterestedConferences(userName));
+        this._store.dispatch(ConferenceActions.getUserInterestedConferences({ userName }));
     }
 
     getUserInterestedConferences(): Observable<Conference[]> {
         return this._store.select(selectUserInterestedConferences);
     }
 
+    addNewConference(conference: Conference): void {
+        this._store.dispatch(ConferenceActions.addNewConference({ conference }));
+    }
+
+    loadUserConferences(userName: string): void {
+        this._store.dispatch(ConferenceActions.loadUserConferences({ userName }));
+    }
+
+    removeConference(conferenceId: string) {
+        this._store.dispatch(ConferenceActions.removeConference({ conferenceId }));
+    }
+
+    removeFavouriteConference(userId: string, conferenceId: string) {
+        this._store.dispatch(ConferenceActions.removeFavouriteConference({ userId, conferenceId}));
+    }
+    
 }

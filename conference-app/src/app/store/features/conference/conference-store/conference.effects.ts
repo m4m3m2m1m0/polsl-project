@@ -7,7 +7,7 @@ import { GlobalMessage } from 'src/app/models/global-message.model';
 import { ConferenceService } from 'src/app/occ/services/conference/conference.service';
 import { showGlobalMessage } from '../../global-message/global-message-store/global-message.actions';
 import { ConferenceActions } from './conference-action-types';
-import { getUserInterestedConferencesSuccess, loadAvailableConferencesSuccess, loadCurrentConfferenceForIdSuccess } from './conference.actions';
+import { getUserInterestedConferencesSuccess, loadAvailableConferencesSuccess, loadCurrentConfferenceForIdSuccess, loadUserConferencesSuccess } from './conference.actions';
 
 
 @Injectable()
@@ -63,4 +63,42 @@ export class ConferenceEffects {
                 ),
             )
     )
+
+    addNewConference$ = createEffect(() =>
+        this._actions$
+            .pipe(
+                ofType(ConferenceActions.addNewConference),
+                mergeMap(action => {
+                    return this._conferenceService.addConference(action.conference).pipe(
+                        switchMap(res => {
+                            const message: GlobalMessage = { message: 'Conference added properly!', action: 'Close', config: null };
+                            return of(showGlobalMessage({ message }));
+                        }),
+                        catchError(error => {
+                            const message: GlobalMessage = { message: 'Conference not added properly!', action: 'Close', config: null };
+                            return of(showGlobalMessage({ message }));
+                        })
+                    )
+                }),
+            )
+    )
+
+    loadUserConferences$ = createEffect(() =>
+        this._actions$
+            .pipe(
+                ofType(ConferenceActions.loadUserConferences),
+                mergeMap(action => {
+                    return this._conferenceService.getUserConferences(action.userName).pipe(
+                        switchMap(conferences => {
+                            return [loadUserConferencesSuccess({ conferences })]
+                        }),
+                        catchError(error => {
+                            const message: GlobalMessage = { message: 'Not found any conferences.', action: 'Close', config: null };
+                            return of(showGlobalMessage({ message }));
+                        })
+                    )
+                }),
+            )
+    )
+    
 }

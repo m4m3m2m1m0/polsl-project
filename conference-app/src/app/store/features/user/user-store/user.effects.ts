@@ -26,7 +26,6 @@ export class UserEffects {
                 mergeMap(action =>
                     this._userService.loginUser(action.loginForm).pipe(
                         switchMap(res => {
-                            const message: GlobalMessage = { message: 'User logged successfully!', action: 'Close', config: null };
 
                             let access_token = res.access_token;
                             let refresh_token = res.refresh_token;
@@ -36,11 +35,12 @@ export class UserEffects {
                             localStorage.setItem("refresh_token", refresh_token);
                             localStorage.setItem("token_type", token_type);
 
-                            const data = `{"name": "${action.loginForm.userName}", "password": "${action.loginForm.password}"}`;
+                            const data = `{"name": "${action.loginForm.userName}", "password": "${action.loginForm.password}", "_id": "${res.userId.$oid}" }`;
                             localStorage.setItem('user', btoa(data));
 
                             const user: User = {
-                                userName: action.loginForm.userName
+                                userName: action.loginForm.userName,
+                                _id: res.userId.$oid
                             }
 
                             return [loginUserSuccess({ user })]
