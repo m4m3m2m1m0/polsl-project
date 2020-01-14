@@ -33,6 +33,6 @@ def getConference(id=''):
     if(id != ''):
         return dumps(mongo.db.conference.find_one_or_404({'_id': ObjectId(id)}))
     elif(userId):
-        return dumps(list(mongo.db.conference.find({'userId': ObjectId(userId)})))
+        return dumps(list(mongo.db.conference.find({'userId': userId})))
     else:
         return dumps(list(mongo.db.conference.find({})))
