@@ -31,11 +31,12 @@ def login():
         access_token = create_access_token(identity=user['userName'])
         refresh_token = create_refresh_token(identity=user['userName'])
 
-        return {
+        return dumps({
             'access_token': access_token,
             'refresh_token': refresh_token,
-            'tokenType': 'Bearer'
-        }
+            'tokenType': 'Bearer',
+            'userId': user['_id']
+        })
 
 
 @auth.route('/resetPassword', methods=['GET'])
