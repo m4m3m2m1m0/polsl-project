@@ -6,10 +6,10 @@ from bson.json_util import dumps
 from bson.objectid import ObjectId
 from flask_jwt_extended import jwt_required
 
-favoriteConverence = Blueprint('favoriteConverence', __name__)
+favoriteConference = Blueprint('favoriteConference', __name__)
 
 
-@favoriteConverence.route('/favoriteConverence', methods=['DELETE'])
+@favoriteConference.route('/favoriteConference', methods=['DELETE'])
 @jwt_required
 def delete():
     body = request.get_json()
@@ -24,7 +24,7 @@ def delete():
     return jsonify(success=True)
 
 
-@favoriteConverence.route('/favoriteConverence', methods=['POST'])
+@favoriteConference.route('/favoriteConference', methods=['POST'])
 @jwt_required
 def save():
     body = request.get_json()
@@ -39,14 +39,16 @@ def save():
     return jsonify(success=True)
 
 
-@favoriteConverence.route('/favoriteConverence', methods=['GET'])
+@favoriteConference.route('/favoriteConference', methods=['GET'])
 @jwt_required
 def get(id=''):
     userId = request.args.get('userId')
-    favoriteConverences = []
+    favoriteConferences = []
     if(userId):
         user = mongo.db.users.find_one_or_404({'_id': ObjectId(userId)})
         if('favoriteConferences' in user):
-            favoriteConverences = list(user['favoriteConferences'])
+            fcIds = list(user['favoriteConferences'])
+            favoriteConferences = list(
+                mongo.db.conference.find({'_id': {'$in': fcIds}}))
 
-    return dumps(favoriteConverences)
+    return dumps(favoriteConferences)
