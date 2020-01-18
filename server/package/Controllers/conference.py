@@ -13,7 +13,7 @@ conference = Blueprint('conference', __name__)
 @jwt_required
 def deleteConference():
     conf = request.get_json()
-    res = mongo.db.conference.delete_one({'_id': ObjectId(conf['id'])})
+    res = mongo.db.conference.delete_one({'_id': ObjectId(conf['_id']['$oid'])})
     return jsonify(success=True)
 
 
