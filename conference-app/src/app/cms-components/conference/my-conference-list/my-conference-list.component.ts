@@ -57,8 +57,9 @@ export class MyConferenceListComponent implements OnInit {
   }
 
   removeConference(row: any) {
-    this._conferenceFacade.removeConference(row._id.$oid);
+    this._conferenceFacade.removeConference(row);
     this._conferenceFacade.loadUserConferences(this.user._id);
+    this._conferenceFacade.loadUserInterestedConferences(this.user._id);
   }
 
 }

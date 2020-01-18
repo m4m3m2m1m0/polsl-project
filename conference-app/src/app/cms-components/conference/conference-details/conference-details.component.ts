@@ -1,9 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { tap, filter } from 'rxjs/operators';
-import { ConferenceFacade } from 'src/app/store/features/conference/facades/conference.facade';
+import { filter, map, tap } from 'rxjs/operators';
 import { Conference } from 'src/app/models/conference.model';
+import { User } from 'src/app/models/user.model';
+import { ConferenceState } from 'src/app/store/features/conference/conference-store/conference.reducers';
+import { selectUserInterestedConferences } from 'src/app/store/features/conference/conference-store/conference.selectors';
+import { ConferenceFacade } from 'src/app/store/features/conference/facades/conference.facade';
+import { UserFacade } from 'src/app/store/features/user/facades/user.facade';
 
 declare var ol: any;
 
@@ -13,6 +18,20 @@ declare var ol: any;
   styleUrls: ['./conference-details.component.scss']
 })
 export class ConferenceDetailsComponent implements OnInit {
+
+  user: User;
+
+  addedToFavourited$: Observable<any> = this._store.select(selectUserInterestedConferences).pipe(
+    filter(conferences => conferences !== undefined),
+    map(conferences => {
+      const id = this._route.snapshot.paramMap.get("id");
+      let addedToFav = false;
+      conferences.forEach(conf => {
+        if (conf._id.$oid === id) addedToFav = true;
+      });
+      return addedToFav;
+    })
+  )
 
   vectorLayers: any[] = [];
   map: any;
@@ -31,10 +50,22 @@ export class ConferenceDetailsComponent implements OnInit {
 
   constructor(
     protected _conferenceFacade: ConferenceFacade,
-    protected _route: ActivatedRoute
+    protected _route: ActivatedRoute,
+    protected _store: Store<ConferenceState>,
+    protected _userFacade: UserFacade
   ) { }
 
   ngOnInit() {
+    this._userFacade.getCurrentUser()
+      .pipe(
+        filter(user => user !== undefined),
+        tap(user => {
+          this.user = user
+          this._conferenceFacade.loadUserInterestedConferences(user._id);
+        })
+      )
+      .subscribe();
+
     this._conferenceFacade.loadCurrentConferenceForId(this._route.snapshot.paramMap.get("id"));
 
     this.map = new ol.Map({
@@ -94,6 +125,11 @@ export class ConferenceDetailsComponent implements OnInit {
 
     this.vectorLayers.push(vectorLayer);
     this.map.addLayer(vectorLayer);
+  }
+
+  addToFavourite() {
+    this._conferenceFacade.addFavouriteConference(this.user._id, this._route.snapshot.paramMap.get("id"));
+    this._conferenceFacade.loadUserInterestedConferences(this.user._id);
   }
 
 } 

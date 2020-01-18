@@ -14,6 +14,11 @@
                     <ng-container *ngFor="let hashtag of conference.hashtags">
                         <span class="conference-hashtag">{{ hashtag?.name }}</span>
                     </ng-container>
+
+                    <ng-container *ngIf="!(addedToFavourited$ | async)">
+                        <button style="margin-right: 2%;" class="btn btn-primary float-right" (click)="addToFavourite()">Add to favourite</button>
+                    </ng-container>
+                    
                 </div>
 
                 <div class="col-md-5 basic-section mat-elevation-z8">

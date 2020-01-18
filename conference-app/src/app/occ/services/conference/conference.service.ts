@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -27,7 +27,7 @@ export class ConferenceService {
   }
 
   getUserInterestedConferences(userName: any) {
-    const url = `${environment.baseServerUrl}/favoriteConverence?userId=${userName}`;
+    const url = `${environment.baseServerUrl}/favoriteConference?userId=${userName}`;
     return this._http
       .get<any>(url);
   }
@@ -46,23 +46,42 @@ export class ConferenceService {
   }
 
   addFavouriteConference(userName: string, conferenceId: string) {
-    const url = `${environment.baseServerUrl}/conference`;
+    const url = `${environment.baseServerUrl}/favoriteConference`;
     return this._http
-      .post<any>(url, { params: { userId: userName, conferenceId: conferenceId } })
+      .post<any>(url, { userId: userName, conferenceId: conferenceId })
       .pipe(catchError((error: any) => throwError(error.json())));
   }
 
   deleteConference(conference: any) {
     const url = `${environment.baseServerUrl}/conference`;
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),    
+      body: conference
+    };
+
     return this._http
-      .delete<Conference>(url, conference)
+      .delete<Conference>(url, options)
       .pipe(catchError((error: any) => throwError(error.json())));
   }
 
   deleteFavouriteConference(userName: string, conferenceId: string) {
-    const url = `${environment.baseServerUrl}/conference`;
+    const url = `${environment.baseServerUrl}/favoriteConference`;
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),    
+      body: {
+        userId: userName,
+        conferenceId: conferenceId
+      },
+    };
+
     return this._http
-      .delete<any>(url, { params: { userId: userName, conferenceId: conferenceId } })
+      .delete<any>(url, options )
       .pipe(catchError((error: any) => throwError(error.json())));
   }
 

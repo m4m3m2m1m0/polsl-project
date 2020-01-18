@@ -100,5 +100,62 @@ export class ConferenceEffects {
                 }),
             )
     )
-    
+
+    addConferenceToFavourite$ = createEffect(() =>
+        this._actions$
+            .pipe(
+                ofType(ConferenceActions.addFavouriteConference),
+                mergeMap(action => {
+                    return this._conferenceService.addFavouriteConference(action.userId, action.conferenceId).pipe(
+                        switchMap(res => {
+                            const message: GlobalMessage = { message: 'Conference added to favourite properly!', action: 'Close', config: null };
+                            return of(showGlobalMessage({ message }));
+                        }),
+                        catchError(error => {
+                            const message: GlobalMessage = { message: 'Conference not added to favourite properly!', action: 'Close', config: null };
+                            return of(showGlobalMessage({ message }));
+                        })
+                    )
+                }),
+            )
+    )
+
+    removeConferenceFromFavourite$ = createEffect(() =>
+        this._actions$
+            .pipe(
+                ofType(ConferenceActions.removeFavouriteConference),
+                mergeMap(action => {
+                    return this._conferenceService.deleteFavouriteConference(action.userId, action.conferenceId).pipe(
+                        switchMap(res => {
+                            const message: GlobalMessage = { message: 'Conference removed from favourite properly!', action: 'Close', config: null };
+                            return of(showGlobalMessage({ message }));
+                        }),
+                        catchError(error => {
+                            const message: GlobalMessage = { message: 'Conference not removed from favourite properly!', action: 'Close', config: null };
+                            return of(showGlobalMessage({ message }));
+                        })
+                    )
+                }),
+            )
+    )
+
+    removeConference$ = createEffect(() =>
+        this._actions$
+            .pipe(
+                ofType(ConferenceActions.removeConference),
+                mergeMap(action => {
+                    return this._conferenceService.deleteConference(action.conference).pipe(
+                        switchMap(res => {
+                            const message: GlobalMessage = { message: 'Conference removed properly!', action: 'Close', config: null };
+                            return of(showGlobalMessage({ message }));
+                        }),
+                        catchError(error => {
+                            const message: GlobalMessage = { message: 'Conference not removed properly!', action: 'Close', config: null };
+                            return of(showGlobalMessage({ message }));
+                        })
+                    )
+                }),
+            )
+    )
+
 }

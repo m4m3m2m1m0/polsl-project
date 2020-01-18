@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+import { Conference } from 'src/app/models/conference.model';
 
 export const loadCurrentConfferenceForId = createAction(
     "[Conference State] Get Current Conference",
@@ -52,7 +53,7 @@ export const addFavouriteConference = createAction(
 
 export const removeConference = createAction(
     "[Conference State] Remove Conference",
-    props<{ conferenceId: any }>()
+    props<{ conference: Conference }>()
 )
 
 export const removeFavouriteConference = createAction(

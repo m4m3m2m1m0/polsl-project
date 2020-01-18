@@ -43,16 +43,20 @@ export class ConferenceFacade {
         this._store.dispatch(ConferenceActions.addNewConference({ conference }));
     }
 
+    addFavouriteConference(userId: string, conferenceId: string): void {
+        this._store.dispatch(ConferenceActions.addFavouriteConference({ userId, conferenceId }));
+    }
+
     loadUserConferences(userName: string): void {
         this._store.dispatch(ConferenceActions.loadUserConferences({ userName }));
     }
 
-    removeConference(conferenceId: string) {
-        this._store.dispatch(ConferenceActions.removeConference({ conferenceId }));
+    removeConference(conference: Conference) {
+        this._store.dispatch(ConferenceActions.removeConference({ conference }));
     }
 
     removeFavouriteConference(userId: string, conferenceId: string) {
-        this._store.dispatch(ConferenceActions.removeFavouriteConference({ userId, conferenceId}));
+        this._store.dispatch(ConferenceActions.removeFavouriteConference({ userId, conferenceId }));
     }
-    
+
 }
