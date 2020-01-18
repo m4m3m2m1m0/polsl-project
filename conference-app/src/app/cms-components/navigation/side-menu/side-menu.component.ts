@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable, of } from 'rxjs';
 import { NewsService } from 'src/app/occ/services/news/news.service';
-import { Observable } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-side-menu',
@@ -9,8 +10,8 @@ import { Observable } from 'rxjs';
 })
 export class SideMenuComponent implements OnInit {
 
-  newses: Observable<any> = this._newsService.getNewestNews();
-  
+  newses$: Observable<any> = this._newsService.getNewestNews();
+
   constructor(
     protected _newsService: NewsService
   ) { }

@@ -1,0 +1,23 @@
+<div style="margin: 0 auto; margin-top: 5%" class="fields-container col-md-6">
+
+    <h5>News Creator</h5>
+    <mat-form-field class="col-md-6">
+        <input matInput [(ngModel)]="title" placeholder="Title">
+    </mat-form-field>
+
+    <mat-form-field class="col-md-6">
+        <input matInput [(ngModel)]="subtitle" placeholder="Subtitle">
+    </mat-form-field>
+
+    <mat-form-field class="col-md-6">
+        <input matInput [(ngModel)]="description" placeholder="Description">
+    </mat-form-field>
+
+    <mat-form-field class="col-md-6">
+        <input matInput [(ngModel)]="date" [matDatepicker]="picker" placeholder="Publish Date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <button class="btn btn-primary float-right" (click)="addNews()">Add News</button>
+</div>

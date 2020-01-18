@@ -21,6 +21,7 @@ import { ConferenceModule } from './store/features/conference/conference.module'
 import { GlobalMessageModule } from './store/features/global-message/global-message.module';
 import { UserModule } from './store/features/user/user.module';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { NewsModule } from './cms-components/news/news.module';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     UserModule,
     ConferenceModule,
     HomepageModule,
+    NewsModule,
     // Store Modules //
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),

@@ -7,6 +7,7 @@ import { HomepageComponent } from './cms-components/homepage/homepage/homepage.c
 import { OpenMapsComponent } from './cms-components/open-maps/open-maps/open-maps.component';
 import { LoginComponent } from './cms-components/sign-in-up/login/login.component';
 import { RegisterComponent } from './cms-components/sign-in-up/register/register.component';
+import { NewsCreatorComponent } from './cms-components/news/news-creator/news-creator.component';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'conference/:id', component: ConferenceDetailsComponent },
   { path: 'conferences', component: ConferenceListComponent },
   { path: 'account-details', component: HomepageComponent },
+  { path: 'news/creator', component: NewsCreatorComponent }
 ];
 
 @NgModule({

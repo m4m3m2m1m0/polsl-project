@@ -14,7 +14,7 @@
 
       <h2>News Feed</h2>
 
-      <ng-container *ngFor="let news of newses | async">
+      <ng-container *ngFor="let news of newses$ | async">
         <div class="news">
           <h4> {{ news?.title }}</h4>
           <span class="news-subtitle">
